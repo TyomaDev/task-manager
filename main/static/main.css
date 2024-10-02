@@ -1,0 +1,95 @@
+*{
+word-break: break-word;
+font-family: Verdana, Geneva, Tahoma, sans-serif
+
+}
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-image: url(./bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #eeeeee;
+}
+
+label{
+    color: #eeeeee;
+}
+legend{
+    color: #e5e5e5;
+}
+.buttonBase{
+  color: #1a1a1a;
+  font-size: 18px;
+  background-color: #eeeeee;
+  border: 1px solid #1a1a1a;
+  padding: 8px 10px;
+  border-radius: 13px;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.buttonBase:hover{
+  transition: all 0.4s;
+  color: #eeeeee;
+  border: 1px solid #eeeeee;
+  text-decoration: none;
+  background-color: #1a1a1a;
+}
+
+.taskCard{
+  padding: 20px;
+
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+.taskText>*{
+  text-align: center;
+}
+
+.taskText>hr{
+  width: 70%;
+  border-color: #bebebe;
+}
+.taskText>h4{
+  color: #eee;
+  font-size: 20px;
+}
+
+.taskCard>div{
+  text-align: right;
+  color: #eee;
+  font-size: 15px;
+}
+
+.filesLink{
+  color: #e5e5e5;
+  transition: 0.25s;
+}
+
+.filesLink:hover{
+  transition: 0.25s;
+  text-decoration: none;
+  cursor: pointer;
+  color: #8b8b8b;
+}
+.alertCustom-success{
+  color: rgb(80, 212, 80);
+  background-color: none !important;
+}
+
+.alertCustom-info{
+  color: rgb(48, 134, 192);
+  background-color: none !important;
+}
+
+.alertCustom-danger{
+  color: rgb(180, 9, 9);
+  background-color: none !important;
+}

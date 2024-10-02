@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="col-12 d-flex justify-content-start">
+    <a class="buttonBase ml-5" href="{{ url_for('landing')}}">Главная</a>
+</div>
+<h4>Список задач: </h4>
+<div class="col-12 d-flex justify-content-center  flex-wrap">
+
+    {% for task in tasks %}
+    {% if current_user.id == task.author_id%}
+    <div class="col-11 col-sm-8 col-md-5 col-lg-3 m-4 taskCard">
+        <div class="taskText">
+            <h2>{{ task.title }}</h2>
+            <hr>
+            <h4>{{ task.description }}</h4>
+            <br>
+        </div>
+        <div class="col-12 d-flex justify-content-between align-items-center flex-wrap taskCardMini">
+            <a href="{{ url_for('task', del=task.id)}}">
+                <svg width="35px" height="35px" viewBox="0 -5 32 32" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Icon-Set-Filled" transform="translate(-518.000000, -1146.000000)" fill="#dc3545">
+                            <path d="M540.647,1159.24 C541.039,1159.63 541.039,1160.27 540.647,1160.66 C540.257,1161.05 539.623,1161.05 539.232,1160.66 L536.993,1158.42 L534.725,1160.69 C534.331,1161.08 533.692,1161.08 533.298,1160.69 C532.904,1160.29 532.904,1159.65 533.298,1159.26 L535.566,1156.99 L533.327,1154.76 C532.936,1154.37 532.936,1153.73 533.327,1153.34 C533.718,1152.95 534.352,1152.95 534.742,1153.34 L536.981,1155.58 L539.281,1153.28 C539.676,1152.89 540.314,1152.89 540.708,1153.28 C541.103,1153.68 541.103,1154.31 540.708,1154.71 L538.408,1157.01 L540.647,1159.24 L540.647,1159.24 Z M545.996,1146 L528.051,1146 C527.771,1145.98 527.485,1146.07 527.271,1146.28 L518.285,1156.22 C518.074,1156.43 517.983,1156.71 517.998,1156.98 C517.983,1157.26 518.074,1157.54 518.285,1157.75 L527.271,1167.69 C527.467,1167.88 527.723,1167.98 527.979,1167.98 L527.979,1168 L545.996,1168 C548.207,1168 550,1166.21 550,1164 L550,1150 C550,1147.79 548.207,1146 545.996,1146 L545.996,1146 Z"
+                                  id="delete">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+            <a class="filesLink" href="{{ url_for('task', files=task.id)}}">Файлы</a>
+            <span>{{ task.date.strftime('%d.%m.%Y') }}</span>
+            <a href="{{ url_for('task', change=task.id)}}" class="ml-2">
+                <svg width="33px" height="33px" viewBox="0 -2 32 32" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Icon-Set-Filled" transform="translate(-101.000000, -156.000000)" fill="#eeeeee">
+                            <path d="M132.132,156.827 C130.975,155.685 129.099,155.685 127.942,156.827 L115.336,169.277 L119.499,173.44 L132.132,160.964 C133.289,159.821 133.289,157.969 132.132,156.827 L132.132,156.827 Z M112.461,180.385 C111.477,181.298 107.08,183.333 104.491,181.36 C104.491,181.36 105.392,180.657 106.074,179.246 C107.703,174.919 111.763,175.56 111.763,175.56 L113.159,176.938 C113.173,176.952 114.202,178.771 112.461,180.385 L112.461,180.385 Z M113.913,170.683 L110.764,173.788 C108.661,173.74 105.748,174.485 104.491,178.603 C103.53,180.781 101,180.671 101,180.671 C106.253,186.498 112.444,183.196 113.857,181.764 C115.1,180.506 115.279,178.966 115.146,177.734 L118.076,174.846 L113.913,170.683 L113.913,170.683 Z"
+                                  id="brush">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </div>
+    {% else%}
+    {% endif %}
+    {% endfor %}
+
+</div>
+
+<div class="content-section col-12  col-md-12 m-auto d-flex justify-content-center align-items-center flex-column">
+    <form class="col-8 col-md-4" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.description.label(class="form-control-label") }}
+                {% if form.description.errors %}
+                {{ form.description(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.description.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.description(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="buttonBase") }}
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+
+
+
+
+{% endblock content %}
